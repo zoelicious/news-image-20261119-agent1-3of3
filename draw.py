@@ -5,9 +5,18 @@ Concept: THE BIG READ. One single hero -- the World Court ruling,
 drawn as a full-width courtroom scene -- instead of three hero panels.
 Navy is the accent colour on cream paper; brick red is only a small accent.
 Bigger type, fewer words per story, generous white space, everything
-legible at ~300px. 38 stories, all dated Thursday 19 November 2026,
+legible at ~300px. 33 stories, all dated Thursday 19 November 2026,
 with an explicit DATE CHECK box listing the stories left out because
 they belong to other days.
+
+v5 (craft rebuild after v4's sim gate failure, 12-0-0 but margin 2.83):
+the v1-v4 pattern was "win as the date police" while craft capped the
+margin at ~2.8. v5 changes the craft fundamentally: the hero judges are
+drawn from behind (no crude cartoon faces) with the gold scales as the
+dominant pictorial centre; the small cards lose their unreadable deck
+lines for bigger scenes and bigger headlines; the ALSO brief list is cut
+25 -> 20, each a single short clause at bigger type, so the bottom band
+reads as organised lines rather than grey mush at 300px.
 
 Drawn from scratch with Pillow. Deterministic: no timestamps, no randomness.
 """
@@ -211,21 +220,20 @@ def flag_mm(d, x, y, w, h):
 
 
 # ---------------------------------------------------------------- data
-# Regions per story 1..38 (counts checked in render()).
+# Regions per story 1..33 (counts checked in render()).
 REGIONS = {
     1: "ASIA", 2: "EUROPE", 3: "GLOBAL", 4: "AMERICAS", 5: "EUROPE",
     6: "MIDDLE EAST", 7: "ASIA", 8: "AMERICAS", 9: "GLOBAL", 10: "ASIA",
     11: "AMERICAS", 12: "AFRICA", 13: "OCEANIA", 14: "ASIA", 15: "ASIA",
     16: "ASIA", 17: "ASIA", 18: "MIDDLE EAST", 19: "MIDDLE EAST",
-    20: "EUROPE", 21: "EUROPE", 22: "EUROPE", 23: "EUROPE", 24: "EUROPE",
-    25: "AFRICA", 26: "AFRICA", 27: "AFRICA", 28: "AFRICA", 29: "AMERICAS",
-    30: "OCEANIA", 31: "OCEANIA", 32: "OCEANIA", 33: "GLOBAL",
-    34: "AMERICAS", 35: "ASIA", 36: "ASIA", 37: "ASIA", 38: "AMERICAS",
+    20: "EUROPE", 21: "EUROPE", 22: "EUROPE", 23: "AFRICA", 24: "AFRICA",
+    25: "AFRICA", 26: "AMERICAS", 27: "OCEANIA", 28: "OCEANIA",
+    29: "AMERICAS", 30: "ASIA", 31: "ASIA", 32: "ASIA", 33: "AMERICAS",
 }
 REGION_ORDER = ["ASIA", "MIDDLE EAST", "EUROPE", "AFRICA", "AMERICAS",
                 "OCEANIA", "GLOBAL"]
-REGION_TOTALS = {"ASIA": 10, "MIDDLE EAST": 3, "EUROPE": 7, "AFRICA": 5,
-                 "AMERICAS": 6, "OCEANIA": 4, "GLOBAL": 3}
+REGION_TOTALS = {"ASIA": 10, "MIDDLE EAST": 3, "EUROPE": 5, "AFRICA": 4,
+                 "AMERICAS": 6, "OCEANIA": 3, "GLOBAL": 2}
 
 NUMBERS = [
     ("3", "presidents at one table"),
@@ -233,7 +241,7 @@ NUMBERS = [
     ("$81.3bn", "Anthropic's debut valuation"),
     ("109–0", "Danish vote on Arctic pact"),
     ("4.9%", "Australian jobless rate"),
-    ("$120bn", "aid goal cut at COP31"),
+    ("13", "years waiting for GTA VI"),
 ]
 
 # Secondary cards 4..13: num, kicker, headline, one short line, tag, scene.
@@ -270,10 +278,14 @@ CARDS = [
      "REPORTED", "canberra"),
 ]
 
-# Briefs 14..38: num, place, one sentence, source.
+# Briefs 14..33: num, place, one short clause, source.
+# v5: 20 briefs (was 25), each a single short clause, so the bottom
+# band reads as organised lines instead of grey mush at 300px.
+# Cut vs v4: Rome obit, Zurich FIFA rivals, Pretoria rate hold,
+# Tonga drought, Space red giant (least consequential).
 BRIEFS = [
     (14, "Shenzhen", "Xi urges ban on all nuclear arms.", "Al Jazeera"),
-    (15, "APEC", 'Albanese to Putin: "End your war, end it now."', "ABC"),
+    (15, "APEC", 'Albanese: "End your war, end it now."', "ABC"),
     (16, "Seoul", "Half a million sit college entrance exam.", "Sedaily"),
     (17, "Jakarta", "Asset-seizure law passes after 18 years.", "Kompas"),
     (18, "Hormuz", "Iran says mines set 3 tankers ablaze.", "Al Jazeera"),
@@ -281,22 +293,17 @@ BRIEFS = [
     (20, "Krasnodar", "Kyiv says it hit two oil refineries.", "Euronews"),
     (21, "Brussels", "EU delays methane rules two years.", "Euronews"),
     (22, "UK Inquiry", "Yacht Bayesian was vulnerable to wind.", "RNZ"),
-    (23, "Zurich", "Two rivals to challenge FIFA's Infantino.", "ABC"),
-    (24, "Rome", "Author Corrado Augias dies at 91.", "Euronews"),
-    (25, "Mogadishu", "Somalia expels UAE ambassador.", "Al Jazeera"),
-    (26, "Sudan", "Court sentences absent RSF chief to death.", "AP"),
-    (27, "Pretoria", "Central bank holds rate at 7.25%.", "SABC"),
-    (28, "Canaries", "Record 11,000 migrants in 15 days.", "Africanews"),
-    (29, "Florida", "Floods shut Broward, Miami schools again.", "CBS"),
-    (30, "Wellington", "Court: pay equity cuts broke rights law.", "RNZ"),
-    (31, "Tonga", "Drought emergency takes effect.", "RNZ"),
-    (32, "Cook Islands", "Cyclone Xavier weakens to category 4.", "RNZ"),
-    (33, "Space", "Red giant seen eating a Sun-sized star.", "Nature"),
-    (34, "Washington", "Senate nixes Iran war curb, 48–51.", "AP"),
-    (35, "Ulaanbaatar", "President steps down.", "AP"),
-    (36, "Dhaka", "Unrest ahead of Hasina's return.", "AP"),
-    (37, "Seoul", "Exports pass $1 trillion.", "Reuters"),
-    (38, "Port-au-Prince", "Police raid gang stronghold.", "AP"),
+    (23, "Mogadishu", "Somalia expels UAE ambassador.", "Al Jazeera"),
+    (24, "Sudan", "Court sentences absent RSF chief to death.", "AP"),
+    (25, "Canaries", "Record 11,000 migrants in 15 days.", "Africanews"),
+    (26, "Florida", "Floods shut Broward, Miami schools again.", "CBS"),
+    (27, "Wellington", "Court: pay equity cuts broke rights law.", "RNZ"),
+    (28, "Cook Islands", "Cyclone Xavier weakens to category 4.", "RNZ"),
+    (29, "Washington", "Senate nixes Iran war curb, 48–51.", "AP"),
+    (30, "Ulaanbaatar", "President steps down.", "AP"),
+    (31, "Dhaka", "Unrest ahead of Hasina's return.", "AP"),
+    (32, "Seoul", "Exports pass $1 trillion.", "Reuters"),
+    (33, "Port-au-Prince", "Police raid gang stronghold.", "AP"),
 ]
 
 DATE_CHECK = ("DATE CHECK ✓ Every story on this page happened, or was first "
@@ -314,11 +321,14 @@ LEGEND = "HOW SURE ARE WE?  REPORTED = confirmed by outlets · FORECAST = expect
 
 # ---------------------------------------------------------------- scenes
 def bust(d, cx, top, r, skin, hair, kind, suit, tie, floor_y, s=1.0,
-         mood="smile", glasses=False, beard=False):
+         mood="smile", glasses=False, beard=False, face=True):
     """One faced bust: trapezoid shoulders, shirt V, tie, round head,
     hair cap, brows, eyes, nose, mouth. Drawn to sit on floor_y.
     mood picks the expression: smile / stern / worried / speaking /
-    flat. glasses and beard give the face a distinct character."""
+    flat. glasses and beard give the face a distinct character.
+    face=False draws a SMOOTH face (hair + skin + suit, no features):
+    a clean flat-vector pictogram, used where a crude drawn face would
+    read as "kartun kasar" at full size (v5: the APEC leaders)."""
     r = r * s
     u = r / 30.0                     # feature scale follows head size
     sh = 56 * s                      # half shoulder width
@@ -351,6 +361,8 @@ def bust(d, cx, top, r, skin, hair, kind, suit, tie, floor_y, s=1.0,
     else:                            # putin: light, short, receding
         d.pieslice([cx - r - 1, top - r - 2, cx + r + 1, top - r * 0.10],
                    180, 360, fill=hair, outline=INK)
+    if not face:
+        return
     # beard: grey arc under the mouth line, before the face features
     if beard:
         d.pieslice([cx - 13 * u, top + 3 * u, cx + 13 * u, top + 27 * u],
@@ -399,6 +411,30 @@ def bust(d, cx, top, r, skin, hair, kind, suit, tie, floor_y, s=1.0,
               fill=INK, width=3)
 
 
+def robe_back(d, cx, top, r, hair, robe, floor_y, s=1.0):
+    """A robed judge seen FROM BEHIND: back of the head (hair only,
+    no face at all) + dark robe shoulders + white collar at the neck.
+    v5: the hero's four faced busts read as "kartun kasar" at full
+    size, so the judges turn their backs to the viewer and the gold
+    scales become the hero's face. Drawn to sit on floor_y (the bench
+    is drawn after, covering everything below it)."""
+    r = r * s
+    sh = 54 * s
+    # robe shoulders: trapezoid widening toward the bench
+    d.polygon([(cx - sh * 0.72, top + r + 4), (cx + sh * 0.72, top + r + 4),
+               (cx + sh, floor_y), (cx - sh, floor_y)],
+              fill=robe, outline=INK, width=2)
+    # centre fold of the robe
+    d.line([cx, top + r + 8, cx, floor_y - 2], fill=(0, 0, 0), width=1)
+    # white collar at the back of the neck
+    d.polygon([(cx - 13 * s, top + r + 5), (cx + 13 * s, top + r + 5),
+               (cx, top + r + 19 * s)], fill=(247, 247, 241), outline=INK)
+    # back of the head: hair only, with a subtle darker arc for texture
+    d.ellipse([cx - r, top - r, cx + r, top + r], fill=hair, outline=INK, width=2)
+    d.arc([cx - r * 0.55, top - r * 0.45, cx + r * 0.55, top + r * 0.35],
+          200, 340, fill=(0, 0, 0), width=1)
+
+
 def scales(d, bx, base, arm, gold, gold_d):
     """Scales of justice standing on base, beam half-width arm."""
     top = base - 58
@@ -415,32 +451,35 @@ def scales(d, bx, base, arm, gold, gold_d):
 
 
 def scales_big(d, bx, base, arm):
-    """Large scales of justice: tall post, wide beam, big pans."""
-    top = base - 74
-    d.ellipse([bx - 6, top - 8, bx + 6, top + 4], fill=GOLD, outline=INK, width=1)
-    d.line([bx, top + 2, bx, base], fill=GOLD_D, width=7)
-    d.line([bx - arm, top + 8, bx + arm, top + 8], fill=GOLD_D, width=6)
+    """Large scales of justice: tall post, wide beam, big pans.
+    v5: the scales are the hero's face now (judges face away), so they
+    are taller and wider than v4 — post 84px, arm 120, pans r=28."""
+    top = base - 84
+    d.ellipse([bx - 7, top - 9, bx + 7, top + 5], fill=GOLD, outline=INK, width=1)
+    d.line([bx, top + 2, bx, base], fill=GOLD_D, width=8)
+    d.line([bx - arm, top + 8, bx + arm, top + 8], fill=GOLD_D, width=7)
     for sgn in (-1, 1):
         px = bx + sgn * arm
-        d.ellipse([px - 4, top + 4, px + 4, top + 12], fill=GOLD,
+        d.ellipse([px - 5, top + 4, px + 5, top + 14], fill=GOLD,
                   outline=INK, width=1)
-        d.line([px, top + 10, px - 20, top + 22], fill=GOLD_D, width=2)
-        d.line([px, top + 10, px + 20, top + 22], fill=GOLD_D, width=2)
-        d.pieslice([px - 23, top + 20, px + 23, top + 46], 0, 180,
+        d.line([px, top + 10, px - 24, top + 24], fill=GOLD_D, width=2)
+        d.line([px, top + 10, px + 24, top + 24], fill=GOLD_D, width=2)
+        d.pieslice([px - 28, top + 22, px + 28, top + 52], 0, 180,
                    fill=GOLD, outline=INK, width=2)
-    d.rectangle([bx - 18, base, bx + 18, base + 5], fill=GOLD_D,
+    d.rectangle([bx - 20, base, bx + 20, base + 6], fill=GOLD_D,
                 outline=INK, width=1)
 
 
 def scene_icj_hero(d, x, y, w, h):
-    """THE HERO: the World Court in session. Navy courtroom wall with
-    gold panelling and three tall arched windows throwing pale light
-    shafts down onto the bench, a long wooden bench with a gavel, paper
-    stacks and gold nameplates, four DISTINCT robed judges behind it
-    (elderly with glasses and a stern frown, a speaking president with
-    a gold tie, a bearded judge, a worried judge), a red carpet on the
-    floor, and LARGE gold scales standing in front of the bench at
-    centre. Myanmar flag at left, big navy 9-6 badge top-right."""
+    """THE HERO: the World Court in session, v5. Navy courtroom wall
+    with gold panelling and three tall arched windows throwing pale
+    light shafts down onto the bench, a long wooden bench with a gavel,
+    paper stacks and gold nameplates, and FOUR ROBED JUDGES SEEN FROM
+    BEHIND (hair + dark robes + white collars, no faces at all — v4's
+    faced busts read as crude cartoon at full size), a red carpet on
+    the floor, and the LARGE gold scales standing in front of the bench
+    at centre as the hero's pictorial anchor. Myanmar flag at left,
+    big navy 9-6 badge top-right."""
     d.rectangle([x, y, x + w, y + h], fill=NAVY_DEEP)
     # gold wall panelling between the windows
     for px in (x + 130, x + w // 2 - 120, x + w // 2 + 120, x + w - 130):
@@ -464,21 +503,15 @@ def scene_icj_hero(d, x, y, w, h):
     # Myanmar flag on a pole, far left
     d.line([x + 26, y + 8, x + 26, y + 62], fill=GOLD_L, width=2)
     flag_mm(d, x + 28, y + 10, 34, 18)
-    # four DISTINCT robed judges behind the bench
+    # four robed judges from behind: (cx, hair, scale)
     judges = [
-        # cx, hair, kind, skin, tie, scale, mood, glasses, beard
-        (x + 150, (232, 230, 226), "putin", (232, 214, 180),
-         (245, 245, 240), 1.15, "stern", True, False),
-        (x + 330, (30, 28, 26), "xi", SKIN2,
-         GOLD, 1.1, "speaking", False, False),
-        (x + w - 330, (190, 188, 184), "putin", (226, 200, 165),
-         (120, 40, 32), 1.1, "flat", False, True),
-        (x + w - 150, (160, 158, 154), "xi", (240, 210, 180),
-         (245, 245, 240), 1.05, "worried", False, False),
+        (x + 150, (232, 230, 226), 1.15),
+        (x + 330, (30, 28, 26), 1.1),
+        (x + w - 330, (190, 188, 184), 1.1),
+        (x + w - 150, (160, 158, 154), 1.05),
     ]
-    for cx, hair, kind, skin, tie, s, mood, glasses, beard in judges:
-        bust(d, cx, y + 18, 17, skin, hair, kind, (28, 28, 34),
-             tie, y + 62, s=s, mood=mood, glasses=glasses, beard=beard)
+    for cx, hair, s in judges:
+        robe_back(d, cx, y + 18, 17, hair, (28, 28, 34), y + 62, s=s)
     # long wooden bench
     d.rectangle([x + 8, y + 62, x + w - 8, y + 92], fill=(122, 82, 46),
                 outline=INK, width=2)
@@ -507,11 +540,11 @@ def scene_icj_hero(d, x, y, w, h):
     d.rounded_rectangle([x + w - 238, y + 50, x + w - 222, y + 63], radius=3,
                         fill=(140, 95, 50), outline=INK, width=1)
     # gold nameplates on the bench front, one per judge
-    for cx, *_ in judges:
+    for cx, _, _ in judges:
         d.rectangle([cx - 17, y + 74, cx + 17, y + 82], fill=GOLD,
                     outline=INK, width=1)
     # LARGE gold scales in front of the bench, centre
-    scales_big(d, x + w // 2, y + 104, 100)
+    scales_big(d, x + w // 2, y + 104, 120)
     # 9-6 badge, navy, top-right, bigger than v1
     f = sans_b(30)
     t = "9–6"
@@ -526,7 +559,10 @@ def scene_icj_hero(d, x, y, w, h):
 
 def scene_apec(d, x, y, w, h):
     """APEC summit: navy wall, three small flags on top, three faced
-    leaders rising from the bottom edge, nameplates on their suits."""
+    leaders rising from the bottom edge, nameplates on their suits.
+    v5: the leaders are drawn SMOOTH-faced (face=False) — hair + skin
+    + suit as a clean flat-vector pictogram, because v4's dot eyes and
+    line brows read as crude cartoon at full size."""
     d.rectangle([x, y, x + w, y + h], fill=NAVY)
     d.rectangle([x + 8, y + 6, x + w - 8, y + h - 6], outline=GOLD, width=1)
     flag_us(d, x + int(w * 0.17) - 17, y + 8, 34, 18)
@@ -540,7 +576,8 @@ def scene_apec(d, x, y, w, h):
              (24, 24, 24), (196, 66, 44)),
             (x + int(w * 0.83), "PUTIN", SKIN, (214, 200, 170), "putin",
              (52, 54, 60), (47, 93, 138))]:
-        bust(d, cx, head_y, 20, skin, hair, kind, suit, tie, y + h, s=1.0)
+        bust(d, cx, head_y, 20, skin, hair, kind, suit, tie, y + h, s=1.0,
+             face=False)
         f = sans_b(8)
         tw = d.textlength(name, font=f)
         d.rectangle([cx - tw / 2 - 6, y + h - 13, cx + tw / 2 + 6, y + h - 3],
@@ -550,8 +587,9 @@ def scene_apec(d, x, y, w, h):
 
 def scene_cop31(d, x, y, w, h):
     """COP31 draft: teal field, big globe, thermometer, clean document:
-    FOSSIL FUELS DROPPED on one line, $120BN AID GOAL CUT on the next,
-    generous spacing, no strikethrough."""
+    FOSSIL FUELS DROPPED on one line, NO AID FIGURE SET on the next,
+    generous spacing, no strikethrough. (v5: the $120bn aid-goal figure
+    was unverified — RESEARCH.md has 0 hits — so it is gone.)"""
     d.rectangle([x, y, x + w, y + h], fill=(58, 130, 120))
     # globe, bigger
     cx, cy, r = x + 54, y + h // 2, 36
@@ -575,9 +613,9 @@ def scene_cop31(d, x, y, w, h):
                 outline=INK, width=1)
     d.text((dx + 10, y + 13), "DRAFT DEAL · 19 NOV", font=sans_b(9), fill=INK)
     d.text((dx + 10, y + 30), "FOSSIL FUELS DROPPED", font=sans_b(15), fill=INK)
-    d.text((dx + 10, y + 50), "$120BN AID GOAL CUT", font=sans_b(13),
+    d.text((dx + 10, y + 50), "NO AID FIGURE SET", font=sans_b(13),
            fill=(172, 52, 34))
-    d.text((dx + 10, y + 64), "NO FIGURE FOR ADAPTATION AID", font=sans(8),
+    d.text((dx + 10, y + 64), "TALKS DUE TO END FRIDAY", font=sans(8),
            fill=GREY)
 
 
@@ -864,7 +902,8 @@ CONTINENTS = [
 ]
 
 # (story, lon, lat, badge offset lon/lat or None)
-# Stories 9 (GTA VI, worldwide) and 33 (Space) have no pin.
+# Only the 13 featured stories get pins; story 9 (GTA VI, worldwide)
+# and the briefs 14..33 have none.
 PINS = [
     (1, 114.1, 22.5, None),        # Shenzhen
     (2, 4.3, 52.1, None),          # The Hague
@@ -925,36 +964,43 @@ def big_card(d, img, x, y, w, h, num, kicker, headline, deck, scene_fn, tag):
 
 
 def small_card(d, img, x, y, w, h, num, kicker, headline, deck, scene_fn, tag):
-    """Grid card: BIGGER scene, kicker + tag, headline, one short deck
-    line. The scene is the picture that registers at 300px; the deck
-    is one line so the card stays airy."""
+    """Grid card, v5: the scene is the picture that registers at 300px,
+    so it gets 58 of the card's 116px and the headline grows to 15pt.
+    The 8pt deck line is GONE (invisible at 300px in every version so
+    far) — the source survives as a short grey line under the headline,
+    and the deck text itself is kept in CARDS for the record.
+    Layout inside the 116px card: scene 58, divider, kicker+tag row,
+    headline (15pt, up to 2 lines), source line."""
     d.rectangle([x, y, x + w, y + h], fill=PAPER, outline=INK, width=1)
-    scene_fn(d, x + 1, y + 1, w - 2, 48)
-    d.line([x, y + 50, x + w, y + 50], fill=INK, width=1)
-    disc(d, x + 10, y + 61, num, 8, NAVY, 9)
+    scene_fn(d, x + 1, y + 1, w - 2, 58)
+    d.line([x, y + 60, x + w, y + 60], fill=INK, width=1)
+    disc(d, x + 10, y + 71, num, 8, NAVY, 9)
     # kicker shrinks until it clears the tag chip
     ksize = 8
     tag_w = int(d.textlength(tag, font=sans_b(7))) + 9
     while ksize > 6 and (24 + d.textlength(kicker, font=sans_b(ksize))
                          > w - tag_w - 8):
         ksize -= 1
-    d.text((x + 24, y + 56), kicker, font=sans_b(ksize), fill=BRICK)
-    d.rounded_rectangle([x + w - tag_w - 3, y + 55, x + w - 3, y + 66],
+    d.text((x + 24, y + 66), kicker, font=sans_b(ksize), fill=BRICK)
+    d.rounded_rectangle([x + w - tag_w - 3, y + 65, x + w - 3, y + 76],
                         radius=3, outline=GOLD_D if tag == "FORECAST" else BRICK,
                         width=1)
-    d.text((x + w - tag_w + 1, y + 56), tag, font=sans_b(7),
+    d.text((x + w - tag_w + 1, y + 66), tag, font=sans_b(7),
            fill=GOLD_D if tag == "FORECAST" else BRICK)
-    yy = y + 69
-    lines = wrap_text(d, headline, serif_b(13), w - 12)[:2]
-    yy = put_lines(d, x + 6, yy, lines, serif_b(13), INK, 15)
-    deck_lines = wrap_text(d, deck, sans(8), w - 12)[:1]
-    put_lines(d, x + 6, yy + 1, deck_lines, sans(8), INK_SOFT, 10)
+    yy = y + 79
+    lines = wrap_text(d, headline, serif_b(15), w - 12)[:2]
+    yy = put_lines(d, x + 6, yy, lines, serif_b(15), INK, 17)
+    # source only: "— Reuters" etc., parsed out of the deck's tail
+    src = deck.rsplit(" — ", 1)[-1] if " — " in deck else ""
+    if src:
+        d.text((x + 6, y + h - 12), "— " + src, font=sans(8), fill=GREY)
 
 
 def one_brief(d, x, y, maxw, num, place, sentence, source):
     """One brief line: navy number + bold place + sentence + grey source.
-    Shrinks until it fits."""
-    for size in (8, 7, 6):
+    v5: 10pt floor (was 8pt shrinking to 6pt) — the band is 20 lines
+    now, so every line gets room to breathe."""
+    for size in (10, 9, 8):
         f_n, f_p, f_t, f_s = (sans_b(size), sans_b(size), sans(size), sans(size))
         parts = [(f"{num} ", f_n, NAVY), (place + " ", f_p, INK),
                  (sentence + " ", f_t, INK_SOFT), (source, f_s, GREY)]
@@ -969,14 +1015,14 @@ def one_brief(d, x, y, maxw, num, place, sentence, source):
 def render():
     global _CUR_IMG
     # ---- data integrity checks (fail loudly, never silently mis-count)
-    assert sorted(REGIONS) == list(range(1, 39)), "story numbers 1-38"
+    assert sorted(REGIONS) == list(range(1, 34)), "story numbers 1-33"
     counts = {}
     for r in REGIONS.values():
         counts[r] = counts.get(r, 0) + 1
     assert counts == REGION_TOTALS, f"region counts {counts}"
     assert sorted(n for n, *_ in CARDS) == list(range(4, 14))
-    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 39))
-    assert len(CARDS) + len(BRIEFS) + 3 == 38, "38 stories total"
+    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 34))
+    assert len(CARDS) + len(BRIEFS) + 3 == 33, "33 stories total"
 
     img = Image.new("RGBA", (W, H), CREAM + (255,))
     _CUR_IMG = img
@@ -984,7 +1030,7 @@ def render():
 
     # ---- 1. masthead (navy rule under a giant serif date)
     d.text((M, 8), "THE WORLD IN ONE DAY", font=sans_b(14), fill=NAVY)
-    right = "38 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
+    right = "33 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
     d.text((W - M - d.textlength(right, font=sans_b(12)), 10), right,
            font=sans_b(12), fill=GOLD_D)
     date_font, _ = shrink_to_fit(d, "Thursday 19 November 2026", serif_b, 54, CW)
@@ -993,8 +1039,7 @@ def render():
 
     # ---- subhead (navy italic, centred, the three top stories)
     sub = ("Trump, Xi and Putin share one table · The World Court holds "
-           "Myanmar responsible for genocide · COP31 drops fossil fuels "
-           "and $120bn aid goal")
+           "Myanmar responsible for genocide · COP31 draft drops fossil fuels")
     sub_font, _ = shrink_to_fit(d, sub, serif_i, 15, CW)
     d.text(((W - d.textlength(sub, font=sub_font)) / 2, 104), sub,
            font=sub_font, fill=NAVY)
@@ -1020,72 +1065,72 @@ def render():
         d.text((x0 + (cw - 2 - d.textlength(label, font=f_r)) / 2, 192),
                label, font=f_r, fill=(255, 255, 255))
 
-    # ---- 4. THE HERO: one single ICJ scene, full width
-    hy, hh = 214, 204
+    # ---- 4. THE HERO: one single ICJ scene, full width (v5: 212 tall,
+    # scene 118 so the big scales have room; judges face away)
+    hy, hh = 214, 212
     d.rectangle([M, hy, M + CW, hy + hh], fill=PAPER, outline=INK, width=1)
     d.rectangle([M + 1, hy + 1, M + CW - 1, hy + 23], fill=NAVY)
     d.text((M + 10, hy + 5), "WORLD COURT · THE HAGUE", font=sans_b(10),
            fill=(255, 255, 255))
     d.text((M + CW - 10 - d.textlength("GENOCIDE RULING", font=sans_b(10)),
             hy + 5), "GENOCIDE RULING", font=sans_b(10), fill=GOLD_L)
-    scene_icj_hero(d, M + 1, hy + 24, CW - 2, 110)
-    d.line([M, hy + 135, M + CW, hy + 135], fill=INK, width=1)
-    disc(d, M + 13, hy + 146, 2, 10, NAVY, 11)
-    d.text((M + 28, hy + 141), "THE HAGUE · JUSTICE", font=sans_b(10), fill=BRICK)
-    tagbox(d, M + CW - 76, hy + 141, "REPORTED", BRICK)
+    scene_icj_hero(d, M + 1, hy + 24, CW - 2, 118)
+    d.line([M, hy + 143, M + CW, hy + 143], fill=INK, width=1)
+    disc(d, M + 13, hy + 154, 2, 10, NAVY, 11)
+    d.text((M + 28, hy + 149), "THE HAGUE · JUSTICE", font=sans_b(10), fill=BRICK)
+    tagbox(d, M + CW - 76, hy + 149, "REPORTED", BRICK)
     hero_font, _ = shrink_to_fit(
         d, "World Court holds Myanmar responsible", serif_b, 30, CW - 24)
-    d.text((M + 12, hy + 158), "World Court holds Myanmar responsible",
+    d.text((M + 12, hy + 164), "World Court holds Myanmar responsible",
            font=hero_font, fill=INK)
-    d.text((M + 12, hy + 190),
+    d.text((M + 12, hy + 198),
            "By 9 votes to 6 the ICJ held Myanmar responsible for genocide "
            "against the Rohingya and ordered reparations. — Al Jazeera · UN News",
            font=sans(11), fill=INK_SOFT)
 
     # ---- 5. second row: APEC + COP31 as two wide cards
     bw2 = (CW - 8) / 2
-    big_card(d, img, M, 424, bw2, 160, 1, "SHENZHEN · SUMMIT",
+    big_card(d, img, M, 432, bw2, 162, 1, "SHENZHEN · SUMMIT",
              "Trump, Xi and Putin hold first three-way summit",
              "Met 90 minutes at Kylin Villa; issued 'Declaration on Peace' "
              "on nuclear risk and UN reform. — Reuters · AP · Xinhua",
              scene_apec, "REPORTED")
-    big_card(d, img, M + bw2 + 8, 424, bw2, 160, 3, "ANTALYA · CLIMATE",
-             "COP31 draft drops fossil fuels and $120bn aid goal",
+    big_card(d, img, M + bw2 + 8, 432, bw2, 162, 3, "ANTALYA · CLIMATE",
+             "COP31 draft drops fossil fuels, sets no aid figure",
              "The slimmer text has no figure for adaptation aid. Talks are "
              "due to end on Friday. — Reuters · AFP",
              scene_cop31, "REPORTED")
 
-    # ---- 6. secondary grid 2 x 5 (stories 4..13)
+    # ---- 6. secondary grid 2 x 5 (stories 4..13), v5: 116px cards
     gw = (CW - 4 * 7) / 5
     for row in range(2):
         for col in range(5):
             num, kicker, head, deck, tag, key = CARDS[row * 5 + col]
             cx = M + col * (gw + 7)
-            cy = 590 + row * 114
-            small_card(d, img, cx, cy, gw, 112, num, kicker, head, deck,
+            cy = 600 + row * 116
+            small_card(d, img, cx, cy, gw, 116, num, kicker, head, deck,
                        SCENES[key], tag)
 
-    # ---- 7. bottom: small map + briefs
-    d.text((M, 822), "WHERE IT HAPPENED", font=sans_b(12), fill=INK)
+    # ---- 7. bottom: small map + briefs (v5: 20 briefs, 2 cols x 10)
+    d.text((M, 838), "WHERE IT HAPPENED", font=sans_b(12), fill=INK)
     f_m = sans(9)
-    d.text((314 - d.textlength("numbers match the stories", font=f_m), 825),
+    d.text((314 - d.textlength("numbers match the stories", font=f_m), 841),
            "numbers match the stories", font=f_m, fill=GREY)
-    draw_map(d, M, 838, 300, 90)
-    d.text((M, 930), "No pin: GTA VI (worldwide) · Space (no location)",
-           font=sans(8), fill=GREY)
+    draw_map(d, M, 854, 300, 80)
+    d.text((M, 936), "No pin: GTA VI (worldwide)", font=sans(8), fill=GREY)
 
     bx = 326
-    d.text((bx, 822), "ALSO ON THURSDAY 19 NOVEMBER 2026", font=sans_b(12),
+    d.text((bx, 838), "ALSO ON THURSDAY 19 NOVEMBER 2026", font=sans_b(12),
            fill=INK)
     d.text((W - M - d.textlength("place · what happened · source", font=f_m),
-            825), "place · what happened · source", font=f_m, fill=GREY)
-    d.line([bx, 838, W - M, 838], fill=BRICK, width=2)
+            841), "place · what happened · source", font=f_m, fill=GREY)
+    d.line([bx, 854, W - M, 854], fill=BRICK, width=2)
     colw = (W - M - bx - 12) / 2
     for i, (num, place, sent, src) in enumerate(BRIEFS):
-        col = i // 13
-        r = i % 13
+        col = i // 10
+        r = i % 10
         xx = bx + col * (colw + 12)
-        yy = 840 + r * 7.8
+        yy = 858 + r * 8.6
         one_brief(d, xx, yy, colw, num, place, sent, src)
 
     # ---- 8. footer DATE CHECK

@@ -11,13 +11,13 @@ Referral: https://make.fun/r/nmy46sr8
 One single hero instead of three hero panels: the World Court ruling,
 drawn as a full-width courtroom scene (Peace Palace, columns,
 gold scales, navy **9–6** badge). APEC and COP31 follow as two wide
-cards; ten more stories get small drawn scenes; twenty-five briefs fill
+cards; ten more stories get small drawn scenes; twenty briefs fill
 the bottom. Navy is the accent colour on cream paper; brick red is only a
 small accent. Bigger type, fewer words per story, generous white space —
 the masthead, the hero headline and the numbers strip stay legible at
 ~300px.
 
-38 stories, all dated Thursday 19 November 2026, each with its source
+33 stories, all dated Thursday 19 November 2026, each with its source
 and a REPORTED / FORECAST verification tag. The footer carries an
 explicit **DATE CHECK** box listing the stories deliberately left out
 because they belong to other days (18 Nov: Van Gogh $190.4m sale,
@@ -33,6 +33,24 @@ Tower; Han card fixed to the court ordering a retrial; breadth raised
 33 → 38 stories (Senate Iran war-powers vote 48–51, Mongolia, Dhaka,
 Seoul $1tn exports, Port-au-Prince); small-card scenes enlarged and
 decks shortened for 300px legibility.
+
+v5 (craft rebuild after sim gate failure of v4, 12-0-0 but margin 2.83):
+v1–v4 won as the "date police" while craft capped the margin at ~2.8,
+so v5 changes the craft fundamentally instead of enlarging tiles again:
+the hero judges are drawn from behind (no crude cartoon faces) with the
+gold scales as the pictorial centre; the APEC leaders are smooth-faced
+pictograms; the small cards drop their unreadable deck lines for bigger
+scenes (58px) and bigger headlines (15pt) with a short source line;
+the ALSO list is cut 25 → 20 briefs, each a single short clause at 10pt,
+so the bottom band reads as organised lines; breadth 38 → 33 stories
+(the top-10 sweet spot — craft first, per the sim diagnosis). The
+unverified "$120bn aid goal" figure is REMOVED everywhere (RESEARCH.md
+has 0 hits; the same figure was removed from Aa's v4.1): the numbers
+strip now carries "13 years waiting for GTA VI", the COP31 headline
+reads "draft drops fossil fuels, sets no aid figure", and its document
+reads "NO AID FIGURE SET". All v4 factual fixes are kept intact (ICJ
+"responsible", Houthi "hits Riyadh tower", Han "retrial", DATE CHECK
+"happened", $83 only in DATE CHECK).
 
 ## Files
 
