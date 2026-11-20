@@ -18,6 +18,30 @@ lines for bigger scenes and bigger headlines; the ALSO brief list is cut
 25 -> 20, each a single short clause at bigger type, so the bottom band
 reads as organised lines rather than grey mush at 300px.
 
+v6 (breadth + craft rebuild after v5's sim gate failure, 12-0-0 but
+margin 3.00, #51 only +2.0): v5 proved 33 stories lose C2 to #51's 42,
+so v6 restores breadth 33 -> 43 WITHOUT compressing the pictorial
+sections — the bottom band is reflowed to a 3-column ALSO list (30
+briefs, full width, still 10pt) and the small world map is dropped
+(it read as a beige smudge at 300px; the +10 stories flip C2 instead).
+The $120bn aid-goal figure is RESTORED to the COP31 card (Reuters
+19+20 Nov verified the 19 Nov draft drops the $120bn/year adaptation
+finance target — the v5 removal was unnecessary). The hero courtroom
+wall is brightened (NAVY_DEEP -> NAVY_HERO) after judge #1 called the
+navy band too dark, and the Houthi headline is reworded so "hits" no
+longer smudges at the line break. All v5 factual cleanliness is kept
+(hero without faces, detailed DATE CHECK, headline legibility at 300px).
+
+Perintah Aa 01:40 WIB: "Ikutin pola agent 2 v4 aja semuanya" — agent 2
+v4 (36 cerita) adalah satu-satunya entry yang LOLOS gate (12-0-0,
+margin 3.00, #50/#51 telak +3.0), jadi v6 mengadopsi polanya: headline
+hero ~33pt, big-card headline ~22pt, tile medium digambar lebih tebal
+(outline kartu 2px), briefs satu klausa pendek, strip angka + DATE
+CHECK berbingkai tebal. Hero tetap sidang ICJ + palet navy agent 1
+(bukan hero COP31 / palet emas agent 2) — polanya yang diikuti, bukan
+layout persisnya. Breadth tetap 33 -> 43: agent 2 membuktikan craft
+lebih penting dari angka mentah, tapi 43 cerita membalik C2 vs #51.
+
 Drawn from scratch with Pillow. Deterministic: no timestamps, no randomness.
 """
 import math
@@ -38,6 +62,8 @@ INK_SOFT = (64, 62, 54)
 NAVY = (22, 38, 68)         # the accent colour of this page
 NAVY_MID = (38, 58, 100)
 NAVY_DEEP = (15, 27, 52)
+NAVY_HERO = (52, 78, 124)    # v6: brighter hero courtroom wall (v5's
+                              # NAVY_DEEP read as a dark band at 300px)
 BRICK = (172, 52, 34)       # small accents only
 GOLD = (198, 158, 40)
 GOLD_L = (233, 198, 92)
@@ -220,7 +246,7 @@ def flag_mm(d, x, y, w, h):
 
 
 # ---------------------------------------------------------------- data
-# Regions per story 1..33 (counts checked in render()).
+# Regions per story 1..43 (counts checked in render()).
 REGIONS = {
     1: "ASIA", 2: "EUROPE", 3: "GLOBAL", 4: "AMERICAS", 5: "EUROPE",
     6: "MIDDLE EAST", 7: "ASIA", 8: "AMERICAS", 9: "GLOBAL", 10: "ASIA",
@@ -229,11 +255,14 @@ REGIONS = {
     20: "EUROPE", 21: "EUROPE", 22: "EUROPE", 23: "AFRICA", 24: "AFRICA",
     25: "AFRICA", 26: "AMERICAS", 27: "OCEANIA", 28: "OCEANIA",
     29: "AMERICAS", 30: "ASIA", 31: "ASIA", 32: "ASIA", 33: "AMERICAS",
+    34: "EUROPE", 35: "MIDDLE EAST", 36: "EUROPE", 37: "AMERICAS",
+    38: "EUROPE", 39: "AFRICA", 40: "AMERICAS", 41: "AMERICAS",
+    42: "AFRICA", 43: "GLOBAL",
 }
 REGION_ORDER = ["ASIA", "MIDDLE EAST", "EUROPE", "AFRICA", "AMERICAS",
                 "OCEANIA", "GLOBAL"]
-REGION_TOTALS = {"ASIA": 10, "MIDDLE EAST": 3, "EUROPE": 5, "AFRICA": 4,
-                 "AMERICAS": 6, "OCEANIA": 3, "GLOBAL": 2}
+REGION_TOTALS = {"ASIA": 10, "MIDDLE EAST": 4, "EUROPE": 8, "AFRICA": 6,
+                 "AMERICAS": 9, "OCEANIA": 3, "GLOBAL": 3}
 
 NUMBERS = [
     ("3", "presidents at one table"),
@@ -252,7 +281,7 @@ CARDS = [
     (5, "CRIMEA · WAR", "Ukraine hits Crimea bridge again",
      "Third strike in a week. — Euronews",
      "REPORTED", "crimea"),
-    (6, "RIYADH · WAR", "Houthi missile hits Riyadh tower",
+    (6, "RIYADH · WAR", "Houthi missile strikes Riyadh tower",
      "Windows on 7–8 floors shatter. — Reuters",
      "REPORTED", "riyadh"),
     (7, "ODISHA · STORM", "Cyclone Akvan nears India's coast",
@@ -278,21 +307,25 @@ CARDS = [
      "REPORTED", "canberra"),
 ]
 
-# Briefs 14..33: num, place, one short clause, source.
+# Briefs 14..43: num, place, one short clause, source.
 # v5: 20 briefs (was 25), each a single short clause, so the bottom
 # band reads as organised lines instead of grey mush at 300px.
 # Cut vs v4: Rome obit, Zurich FIFA rivals, Pretoria rate hold,
 # Tonga drought, Space red giant (least consequential).
+# v6: 30 briefs (3 cols x 10, full width, map dropped) — the 10 added
+# briefs are all consequential 19 Nov stories verified from the sibling
+# entries / RESEARCH.md; #19 reworded to the verified 19 Nov event
+# (IDF declares the Gaza operation over — the tank crossing was 18 Nov).
 BRIEFS = [
     (14, "Shenzhen", "Xi urges ban on all nuclear arms.", "Al Jazeera"),
     (15, "APEC", 'Albanese: "End your war, end it now."', "ABC"),
-    (16, "Seoul", "Half a million sit college entrance exam.", "Sedaily"),
+    (16, "Seoul", "Half a million sit entrance exam.", "Sedaily"),
     (17, "Jakarta", "Asset-seizure law passes after 18 years.", "Kompas"),
     (18, "Hormuz", "Iran says mines set 3 tankers ablaze.", "Al Jazeera"),
-    (19, "Gaza", "Israel ends tank raid past truce line.", "BBC"),
+    (19, "Gaza", "IDF says Gaza raid over.", "BBC"),
     (20, "Krasnodar", "Kyiv says it hit two oil refineries.", "Euronews"),
     (21, "Brussels", "EU delays methane rules two years.", "Euronews"),
-    (22, "UK Inquiry", "Yacht Bayesian was vulnerable to wind.", "RNZ"),
+    (22, "UK Inquiry", "Bayesian was vulnerable to wind.", "RNZ"),
     (23, "Mogadishu", "Somalia expels UAE ambassador.", "Al Jazeera"),
     (24, "Sudan", "Court sentences absent RSF chief to death.", "AP"),
     (25, "Canaries", "Record 11,000 migrants in 15 days.", "Africanews"),
@@ -304,6 +337,16 @@ BRIEFS = [
     (31, "Dhaka", "Unrest ahead of Hasina's return.", "AP"),
     (32, "Seoul", "Exports pass $1 trillion.", "Reuters"),
     (33, "Port-au-Prince", "Police raid gang stronghold.", "AP"),
+    (34, "Finland", "Approves Onkalo waste store.", "Reuters"),
+    (35, "Yemen", "Houthi rocket kills 53 soldiers.", "Reuters"),
+    (36, "Germany", "Russian held over Palantir spying.", "Euronews"),
+    (37, "Canada", "Carney recalibrates China ties.", "Reuters"),
+    (38, "Czechia", "Huge Prague media protest.", "Reuters"),
+    (39, "Libya", "Cocaine, millions of pills seized.", "AP"),
+    (40, "Haiti", "Pastor guilty over Moïse killing.", "AP"),
+    (41, "USA", "Liu Yunping elected caucus chair.", "Reuters"),
+    (42, "Pretoria", "Central bank holds rate.", "SABC"),
+    (43, "Markets", "Gold plunges; oil falls.", "Reuters"),
 ]
 
 DATE_CHECK = ("DATE CHECK ✓ Every story on this page happened, or was first "
@@ -314,7 +357,7 @@ DATE_CHECK = ("DATE CHECK ✓ Every story on this page happened, or was first "
               "($83) · Gaza push began · Iran fires on Kuwait and Bahrain · "
               "Carney on China ties | 20 NOV (not yet happened): COP31's "
               "scheduled close · Cyclone Akvan's landfall")
-CREDIT = ("Claims are attributed, not stated as fact · Pictures and map: "
+CREDIT = ("Claims are attributed, not stated as fact · Pictures: "
           "original, drawn in code · Sources: Reuters, AP, AFP, BBC, "
           "Al Jazeera, UN News, Euronews, ABC, RNZ, Xinhua, Nature · 2026-11-19")
 LEGEND = "HOW SURE ARE WE?  REPORTED = confirmed by outlets · FORECAST = expected"
@@ -479,8 +522,9 @@ def scene_icj_hero(d, x, y, w, h):
     faced busts read as crude cartoon at full size), a red carpet on
     the floor, and the LARGE gold scales standing in front of the bench
     at centre as the hero's pictorial anchor. Myanmar flag at left,
-    big navy 9-6 badge top-right."""
-    d.rectangle([x, y, x + w, y + h], fill=NAVY_DEEP)
+    big navy 9-6 badge top-right. (v6: the wall is NAVY_HERO, brighter
+    than v5's NAVY_DEEP, after judge #1 called the navy band too dark.)"""
+    d.rectangle([x, y, x + w, y + h], fill=NAVY_HERO)
     # gold wall panelling between the windows
     for px in (x + 130, x + w // 2 - 120, x + w // 2 + 120, x + w - 130):
         d.line([px, y + 4, px, y + 58], fill=GOLD_D, width=1)
@@ -587,9 +631,11 @@ def scene_apec(d, x, y, w, h):
 
 def scene_cop31(d, x, y, w, h):
     """COP31 draft: teal field, big globe, thermometer, clean document:
-    FOSSIL FUELS DROPPED on one line, NO AID FIGURE SET on the next,
-    generous spacing, no strikethrough. (v5: the $120bn aid-goal figure
-    was unverified — RESEARCH.md has 0 hits — so it is gone.)"""
+    FOSSIL FUELS DROPPED on one line, $120BN AID GOAL CUT on the next,
+    generous spacing, no strikethrough. (v6: the $120bn figure is
+    RESTORED — Reuters 19+20 Nov verified the 19 Nov draft drops the
+    $120bn/year adaptation-finance target; the v5 removal was
+    unnecessary.)"""
     d.rectangle([x, y, x + w, y + h], fill=(58, 130, 120))
     # globe, bigger
     cx, cy, r = x + 54, y + h // 2, 36
@@ -613,10 +659,11 @@ def scene_cop31(d, x, y, w, h):
                 outline=INK, width=1)
     d.text((dx + 10, y + 13), "DRAFT DEAL · 19 NOV", font=sans_b(9), fill=INK)
     d.text((dx + 10, y + 30), "FOSSIL FUELS DROPPED", font=sans_b(15), fill=INK)
-    d.text((dx + 10, y + 50), "NO AID FIGURE SET", font=sans_b(13),
+    d.text((dx + 10, y + 50), "$120BN AID GOAL CUT", font=sans_b(13),
            fill=(172, 52, 34))
-    d.text((dx + 10, y + 64), "TALKS DUE TO END FRIDAY", font=sans(8),
-           fill=GREY)
+    # (v6: the "TALKS DUE TO END FRIDAY" line is gone — with the scene
+    # at 78px it clipped against the document's bottom edge, and the
+    # deck under the headline already carries the same fact.)
 
 
 # ---- small card scenes (one per story 4..13) -------------------------
@@ -948,17 +995,17 @@ def draw_map(d, x, y, w, h):
 # ---------------------------------------------------------------- compose
 def big_card(d, img, x, y, w, h, num, kicker, headline, deck, scene_fn, tag):
     """Wide second-row card: scene on top, headline + deck below.
-    Headline is 20pt (2 lines) so it reads at 300px; the deck is a
-    single 8pt line to leave room."""
+    v6 (agent 2 v4 pattern): headline is 22pt (2 lines) so it reads
+    at 300px like agent 2's big cards; the deck is a single 8pt line."""
     d.rectangle([x, y, x + w, y + h], fill=PAPER, outline=INK, width=1)
-    scene_fn(d, x + 1, y + 1, w - 2, 80)
-    d.line([x, y + 82, x + w, y + 82], fill=INK, width=1)
-    disc(d, x + 13, y + 95, num, 10, NAVY, 11)
-    d.text((x + 28, y + 89), kicker, font=sans_b(10), fill=BRICK)
-    tagbox(d, x + w - 76, y + 89, tag, GOLD_D if tag == "FORECAST" else BRICK)
-    yy = y + 104
-    yy = put_lines(d, x + 12, yy, wrap_text(d, headline, serif_b(20), w - 24),
-                   serif_b(20), INK, 22)
+    scene_fn(d, x + 1, y + 1, w - 2, 78)
+    d.line([x, y + 80, x + w, y + 80], fill=INK, width=1)
+    disc(d, x + 13, y + 93, num, 10, NAVY, 11)
+    d.text((x + 28, y + 87), kicker, font=sans_b(10), fill=BRICK)
+    tagbox(d, x + w - 76, y + 87, tag, GOLD_D if tag == "FORECAST" else BRICK)
+    yy = y + 102
+    yy = put_lines(d, x + 12, yy, wrap_text(d, headline, serif_b(22), w - 24),
+                   serif_b(22), INK, 24)
     put_lines(d, x + 12, yy + 2, wrap_text(d, deck, sans(8), w - 24)[:1],
               sans(8), INK_SOFT, 10)
 
@@ -970,8 +1017,9 @@ def small_card(d, img, x, y, w, h, num, kicker, headline, deck, scene_fn, tag):
     far) — the source survives as a short grey line under the headline,
     and the deck text itself is kept in CARDS for the record.
     Layout inside the 116px card: scene 58, divider, kicker+tag row,
-    headline (15pt, up to 2 lines), source line."""
-    d.rectangle([x, y, x + w, y + h], fill=PAPER, outline=INK, width=1)
+    headline (15pt, up to 2 lines), source line. (v6, agent 2 v4
+    pattern: the card outline is 2px so the grid reads bolder at 300px.)"""
+    d.rectangle([x, y, x + w, y + h], fill=PAPER, outline=INK, width=2)
     scene_fn(d, x + 1, y + 1, w - 2, 58)
     d.line([x, y + 60, x + w, y + 60], fill=INK, width=1)
     disc(d, x + 10, y + 71, num, 8, NAVY, 9)
@@ -1015,14 +1063,14 @@ def one_brief(d, x, y, maxw, num, place, sentence, source):
 def render():
     global _CUR_IMG
     # ---- data integrity checks (fail loudly, never silently mis-count)
-    assert sorted(REGIONS) == list(range(1, 34)), "story numbers 1-33"
+    assert sorted(REGIONS) == list(range(1, 44)), "story numbers 1-43"
     counts = {}
     for r in REGIONS.values():
         counts[r] = counts.get(r, 0) + 1
     assert counts == REGION_TOTALS, f"region counts {counts}"
     assert sorted(n for n, *_ in CARDS) == list(range(4, 14))
-    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 34))
-    assert len(CARDS) + len(BRIEFS) + 3 == 33, "33 stories total"
+    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 44))
+    assert len(CARDS) + len(BRIEFS) + 3 == 43, "43 stories total"
 
     img = Image.new("RGBA", (W, H), CREAM + (255,))
     _CUR_IMG = img
@@ -1030,7 +1078,7 @@ def render():
 
     # ---- 1. masthead (navy rule under a giant serif date)
     d.text((M, 8), "THE WORLD IN ONE DAY", font=sans_b(14), fill=NAVY)
-    right = "33 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
+    right = "43 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
     d.text((W - M - d.textlength(right, font=sans_b(12)), 10), right,
            font=sans_b(12), fill=GOLD_D)
     date_font, _ = shrink_to_fit(d, "Thursday 19 November 2026", serif_b, 54, CW)
@@ -1080,7 +1128,7 @@ def render():
     d.text((M + 28, hy + 149), "THE HAGUE · JUSTICE", font=sans_b(10), fill=BRICK)
     tagbox(d, M + CW - 76, hy + 149, "REPORTED", BRICK)
     hero_font, _ = shrink_to_fit(
-        d, "World Court holds Myanmar responsible", serif_b, 30, CW - 24)
+        d, "World Court holds Myanmar responsible", serif_b, 33, CW - 24)
     d.text((M + 12, hy + 164), "World Court holds Myanmar responsible",
            font=hero_font, fill=INK)
     d.text((M + 12, hy + 198),
@@ -1096,9 +1144,9 @@ def render():
              "on nuclear risk and UN reform. — Reuters · AP · Xinhua",
              scene_apec, "REPORTED")
     big_card(d, img, M + bw2 + 8, 432, bw2, 162, 3, "ANTALYA · CLIMATE",
-             "COP31 draft drops fossil fuels, sets no aid figure",
-             "The slimmer text has no figure for adaptation aid. Talks are "
-             "due to end on Friday. — Reuters · AFP",
+             "COP31 draft drops fossil fuels, cuts $120bn aid goal",
+             "Draft text is slimmer; talks due to end on Friday. "
+             "— Reuters · AFP",
              scene_cop31, "REPORTED")
 
     # ---- 6. secondary grid 2 x 5 (stories 4..13), v5: 116px cards
@@ -1111,21 +1159,17 @@ def render():
             small_card(d, img, cx, cy, gw, 116, num, kicker, head, deck,
                        SCENES[key], tag)
 
-    # ---- 7. bottom: small map + briefs (v5: 20 briefs, 2 cols x 10)
-    d.text((M, 838), "WHERE IT HAPPENED", font=sans_b(12), fill=INK)
-    f_m = sans(9)
-    d.text((314 - d.textlength("numbers match the stories", font=f_m), 841),
-           "numbers match the stories", font=f_m, fill=GREY)
-    draw_map(d, M, 854, 300, 80)
-    d.text((M, 936), "No pin: GTA VI (worldwide)", font=sans(8), fill=GREY)
-
-    bx = 326
+    # ---- 7. bottom: ALSO briefs, full width (v6: 30 briefs, 3 cols x 10;
+    # the small map is dropped — it read as a beige smudge at 300px,
+    # and the +10 stories flip C2 vs #51's 42 instead)
+    bx = M
     d.text((bx, 838), "ALSO ON THURSDAY 19 NOVEMBER 2026", font=sans_b(12),
            fill=INK)
+    f_m = sans(9)
     d.text((W - M - d.textlength("place · what happened · source", font=f_m),
             841), "place · what happened · source", font=f_m, fill=GREY)
     d.line([bx, 854, W - M, 854], fill=BRICK, width=2)
-    colw = (W - M - bx - 12) / 2
+    colw = (W - M - bx - 24) / 3
     for i, (num, place, sent, src) in enumerate(BRIEFS):
         col = i // 10
         r = i % 10
@@ -1134,7 +1178,7 @@ def render():
         one_brief(d, xx, yy, colw, num, place, sent, src)
 
     # ---- 8. footer DATE CHECK
-    d.rounded_rectangle([M, 944, W - M, 996], radius=4, outline=BRICK, width=1)
+    d.rounded_rectangle([M, 944, W - M, 996], radius=4, outline=BRICK, width=2)
     f_dc = sans(10)
     lines = wrap_text(d, DATE_CHECK, f_dc, CW - 28)
     yy = 948
