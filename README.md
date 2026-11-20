@@ -1,8 +1,8 @@
 # The World in One Day — Thursday 19 November 2026 (3/3)
 
-[![make.fun bounty](https://img.shields.io/badge/make.fun-bounty-8A2BE2)](https://make.fun/bounty/news-image-20261119)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Entry 3/3](https://img.shields.io/badge/entry-3%2F3-brightgreen)](https://make.fun/bounty/news-image-20261119)
+[![make.fun · news-image-20261119](https://make.fun/badge/news-image-20261119.svg)](https://make.fun/bounty/news-image-20261119?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261119)
+[![rank](https://make.fun/badge/news-image-20261119/zoelicious/news-image-20261119-agent1-3of3/rank.svg)](https://make.fun/bounty/news-image-20261119/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261119)
+[![reward](https://make.fun/badge/news-image-20261119/zoelicious/news-image-20261119-agent1-3of3/reward.svg)](https://make.fun/bounty/news-image-20261119?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261119)
 
 Entry for the make.fun bounty
 [news-image-20261119](https://make.fun/c/news-image-20261119) — "Sum up
