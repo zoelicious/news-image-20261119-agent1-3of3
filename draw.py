@@ -246,7 +246,7 @@ def flag_mm(d, x, y, w, h):
 
 
 # ---------------------------------------------------------------- data
-# Regions per story 1..43 (counts checked in render()).
+# Regions per story 1..42 (counts checked in render()).
 REGIONS = {
     1: "ASIA", 2: "EUROPE", 3: "GLOBAL", 4: "AMERICAS", 5: "EUROPE",
     6: "MIDDLE EAST", 7: "ASIA", 8: "AMERICAS", 9: "GLOBAL", 10: "ASIA",
@@ -255,14 +255,14 @@ REGIONS = {
     20: "EUROPE", 21: "EUROPE", 22: "EUROPE", 23: "AFRICA", 24: "AFRICA",
     25: "AFRICA", 26: "AMERICAS", 27: "OCEANIA", 28: "OCEANIA",
     29: "AMERICAS", 30: "ASIA", 31: "ASIA", 32: "ASIA", 33: "AMERICAS",
-    34: "EUROPE", 35: "MIDDLE EAST", 36: "EUROPE", 37: "AMERICAS",
-    38: "EUROPE", 39: "AFRICA", 40: "AMERICAS", 41: "AMERICAS",
-    42: "AFRICA", 43: "GLOBAL",
+    34: "EUROPE", 35: "MIDDLE EAST", 36: "EUROPE", 37: "EUROPE",
+    38: "AFRICA", 39: "AMERICAS", 40: "AMERICAS",
+    41: "AFRICA", 42: "GLOBAL",
 }
 REGION_ORDER = ["ASIA", "MIDDLE EAST", "EUROPE", "AFRICA", "AMERICAS",
                 "OCEANIA", "GLOBAL"]
 REGION_TOTALS = {"ASIA": 10, "MIDDLE EAST": 4, "EUROPE": 8, "AFRICA": 6,
-                 "AMERICAS": 9, "OCEANIA": 3, "GLOBAL": 3}
+                 "AMERICAS": 8, "OCEANIA": 3, "GLOBAL": 3}
 
 NUMBERS = [
     ("3", "presidents at one table"),
@@ -307,7 +307,7 @@ CARDS = [
      "REPORTED", "canberra"),
 ]
 
-# Briefs 14..43: num, place, one short clause, source.
+# Briefs 14..42: num, place, one short clause, source.
 # v5: 20 briefs (was 25), each a single short clause, so the bottom
 # band reads as organised lines instead of grey mush at 300px.
 # Cut vs v4: Rome obit, Zurich FIFA rivals, Pretoria rate hold,
@@ -340,13 +340,12 @@ BRIEFS = [
     (34, "Finland", "Approves Onkalo waste store.", "Reuters"),
     (35, "Yemen", "Houthi rocket kills 53 soldiers.", "Reuters"),
     (36, "Germany", "Russian held over Palantir spying.", "Euronews"),
-    (37, "Canada", "Carney recalibrates China ties.", "Reuters"),
-    (38, "Czechia", "Huge Prague media protest.", "Reuters"),
-    (39, "Libya", "Cocaine, millions of pills seized.", "AP"),
-    (40, "Haiti", "Pastor guilty over Moïse killing.", "AP"),
-    (41, "USA", "Liu Yunping elected caucus chair.", "Reuters"),
-    (42, "Pretoria", "Central bank holds rate.", "SABC"),
-    (43, "Markets", "Gold plunges; oil falls.", "Reuters"),
+    (37, "Czechia", "Huge Prague media protest.", "Reuters"),
+    (38, "Libya", "Cocaine, millions of pills seized.", "AP"),
+    (39, "Haiti", "Pastor guilty over Moïse killing.", "AP"),
+    (40, "USA", "Liu Yunping elected caucus chair.", "Reuters"),
+    (41, "Pretoria", "Central bank holds rate.", "SABC"),
+    (42, "Markets", "Gold plunges; oil falls.", "Reuters"),
 ]
 
 DATE_CHECK = ("DATE CHECK ✓ Every story on this page happened, or was first "
@@ -1063,14 +1062,14 @@ def one_brief(d, x, y, maxw, num, place, sentence, source):
 def render():
     global _CUR_IMG
     # ---- data integrity checks (fail loudly, never silently mis-count)
-    assert sorted(REGIONS) == list(range(1, 44)), "story numbers 1-43"
+    assert sorted(REGIONS) == list(range(1, 43)), "story numbers 1-42"
     counts = {}
     for r in REGIONS.values():
         counts[r] = counts.get(r, 0) + 1
     assert counts == REGION_TOTALS, f"region counts {counts}"
     assert sorted(n for n, *_ in CARDS) == list(range(4, 14))
-    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 44))
-    assert len(CARDS) + len(BRIEFS) + 3 == 43, "43 stories total"
+    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 43))
+    assert len(CARDS) + len(BRIEFS) + 3 == 42, "42 stories total"
 
     img = Image.new("RGBA", (W, H), CREAM + (255,))
     _CUR_IMG = img
@@ -1078,7 +1077,7 @@ def render():
 
     # ---- 1. masthead (navy rule under a giant serif date)
     d.text((M, 8), "THE WORLD IN ONE DAY", font=sans_b(14), fill=NAVY)
-    right = "43 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
+    right = "42 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
     d.text((W - M - d.textlength(right, font=sans_b(12)), 10), right,
            font=sans_b(12), fill=GOLD_D)
     date_font, _ = shrink_to_fit(d, "Thursday 19 November 2026", serif_b, 54, CW)
@@ -1159,7 +1158,7 @@ def render():
             small_card(d, img, cx, cy, gw, 116, num, kicker, head, deck,
                        SCENES[key], tag)
 
-    # ---- 7. bottom: ALSO briefs, full width (v6: 30 briefs, 3 cols x 10;
+    # ---- 7. bottom: ALSO briefs, full width (v6.1: 29 briefs, 3 cols;
     # the small map is dropped — it read as a beige smudge at 300px,
     # and the +10 stories flip C2 vs #51's 42 instead)
     bx = M
