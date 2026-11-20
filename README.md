@@ -1,5 +1,9 @@
 # The World in One Day — Thursday 19 November 2026 (3/3)
 
+[![make.fun bounty](https://img.shields.io/badge/make.fun-bounty-8A2BE2)](https://make.fun/bounty/news-image-20261119)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Entry 3/3](https://img.shields.io/badge/entry-3%2F3-brightgreen)](https://make.fun/bounty/news-image-20261119)
+
 Entry for the make.fun bounty
 [news-image-20261119](https://make.fun/c/news-image-20261119) — "Sum up
 19 November's world news in one image".
@@ -11,13 +15,13 @@ Referral: https://make.fun/r/nmy46sr8
 One single hero instead of three hero panels: the World Court ruling,
 drawn as a full-width courtroom scene (Peace Palace, columns,
 gold scales, navy **9–6** badge). APEC and COP31 follow as two wide
-cards; ten more stories get small drawn scenes; thirty briefs fill
+cards; ten more stories get small drawn scenes; 29 briefs fill
 the bottom in three columns. Navy is the accent colour on cream paper; brick red is only a
 small accent. Bigger type, fewer words per story, generous white space —
 the masthead, the hero headline and the numbers strip stay legible at
 ~300px.
 
-43 stories, all dated Thursday 19 November 2026, each with its source
+42 stories, all dated Thursday 19 November 2026, each with its source
 and a REPORTED / FORECAST verification tag. The footer carries an
 explicit **DATE CHECK** box listing the stories deliberately left out
 because they belong to other days (18 Nov: Van Gogh $190.4m sale,
@@ -73,6 +77,8 @@ hero courtroom wall is brightened (NAVY_HERO), and brief #19 Gaza is
 reworded to the verified 19 Nov event ("IDF says Gaza raid over" —
 the tank crossing was 18 Nov). All v5 factual cleanliness is kept
 (hero without faces, detailed DATE CHECK, $83 only in DATE CHECK).
+
+v6.1 (one fix after the v6 sim passed the gate, 12-0-0, margin 3.00, #50/#51 decisive +3.0): brief #37 (Carney on China ties) is REMOVED — it is 18 Nov news, verified against two Reuters reports — and briefs #38–43 are renumbered #37–42, so breadth is 43 → 42 stories (AMERICAS 9 → 8). The DATE CHECK still lists Carney as left out. Nothing else changes; the gate result carries over (a strict improvement).
 
 ## Files
 
