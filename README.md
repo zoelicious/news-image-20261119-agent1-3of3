@@ -8,16 +8,16 @@ Referral: https://make.fun/r/nmy46sr8
 
 ## Concept — "The Big Read"
 
-One single hero instead of three hero panels: the World Court genocide
-ruling, drawn as a full-width courtroom scene (Peace Palace, columns,
+One single hero instead of three hero panels: the World Court ruling,
+drawn as a full-width courtroom scene (Peace Palace, columns,
 gold scales, navy **9–6** badge). APEC and COP31 follow as two wide
-cards; ten more stories get small drawn scenes; twenty briefs fill the
-bottom. Navy is the accent colour on cream paper; brick red is only a
+cards; ten more stories get small drawn scenes; twenty-five briefs fill
+the bottom. Navy is the accent colour on cream paper; brick red is only a
 small accent. Bigger type, fewer words per story, generous white space —
 the masthead, the hero headline and the numbers strip stay legible at
 ~300px.
 
-33 stories, all dated Thursday 19 November 2026, each with its source
+38 stories, all dated Thursday 19 November 2026, each with its source
 and a REPORTED / FORECAST verification tag. The footer carries an
 explicit **DATE CHECK** box listing the stories deliberately left out
 because they belong to other days (18 Nov: Van Gogh $190.4m sale,
@@ -25,6 +25,14 @@ Jeffries named for US speaker, Voyager 1 one light-day, EU €45bn
 Ukraine loan, Nvidia results, Pew 2035, Anthropic IPO pricing at $83,
 Gaza push began, Iran fires on Kuwait and Bahrain, Carney on China
 ties; 20 Nov: COP31's scheduled close, Cyclone Akvan's landfall).
+
+v4 (rebuild after sim gate failure of v3, 11-0-1): ICJ headline fixed
+to "holds Myanmar responsible" (the Court said "responsible", not
+"committed/guilty"); Houthi card fixed to the missile HIT on the PIF
+Tower; Han card fixed to the court ordering a retrial; breadth raised
+33 → 38 stories (Senate Iran war-powers vote 48–51, Mongolia, Dhaka,
+Seoul $1tn exports, Port-au-Prince); small-card scenes enlarged and
+decks shortened for 300px legibility.
 
 ## Files
 

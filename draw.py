@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Render entry 3/3 for make.fun news-image-20261119 (agent 1, amber-puffin-51).
 
-Concept: THE BIG READ. One single hero -- the World Court genocide ruling,
+Concept: THE BIG READ. One single hero -- the World Court ruling,
 drawn as a full-width courtroom scene -- instead of three hero panels.
 Navy is the accent colour on cream paper; brick red is only a small accent.
 Bigger type, fewer words per story, generous white space, everything
-legible at ~300px. 33 stories, all dated Thursday 19 November 2026,
+legible at ~300px. 38 stories, all dated Thursday 19 November 2026,
 with an explicit DATE CHECK box listing the stories left out because
 they belong to other days.
 
@@ -211,7 +211,7 @@ def flag_mm(d, x, y, w, h):
 
 
 # ---------------------------------------------------------------- data
-# Regions per story 1..33 (counts checked in render()).
+# Regions per story 1..38 (counts checked in render()).
 REGIONS = {
     1: "ASIA", 2: "EUROPE", 3: "GLOBAL", 4: "AMERICAS", 5: "EUROPE",
     6: "MIDDLE EAST", 7: "ASIA", 8: "AMERICAS", 9: "GLOBAL", 10: "ASIA",
@@ -220,16 +220,17 @@ REGIONS = {
     20: "EUROPE", 21: "EUROPE", 22: "EUROPE", 23: "EUROPE", 24: "EUROPE",
     25: "AFRICA", 26: "AFRICA", 27: "AFRICA", 28: "AFRICA", 29: "AMERICAS",
     30: "OCEANIA", 31: "OCEANIA", 32: "OCEANIA", 33: "GLOBAL",
+    34: "AMERICAS", 35: "ASIA", 36: "ASIA", 37: "ASIA", 38: "AMERICAS",
 }
 REGION_ORDER = ["ASIA", "MIDDLE EAST", "EUROPE", "AFRICA", "AMERICAS",
                 "OCEANIA", "GLOBAL"]
-REGION_TOTALS = {"ASIA": 7, "MIDDLE EAST": 3, "EUROPE": 7, "AFRICA": 5,
-                 "AMERICAS": 4, "OCEANIA": 4, "GLOBAL": 3}
+REGION_TOTALS = {"ASIA": 10, "MIDDLE EAST": 3, "EUROPE": 7, "AFRICA": 5,
+                 "AMERICAS": 6, "OCEANIA": 4, "GLOBAL": 3}
 
 NUMBERS = [
     ("3", "presidents at one table"),
     ("9–6", "World Court genocide vote"),
-    ("$81.3bn", "Anthropic's record IPO"),
+    ("$81.3bn", "Anthropic's debut valuation"),
     ("109–0", "Danish vote on Arctic pact"),
     ("4.9%", "Australian jobless rate"),
     ("$120bn", "aid goal cut at COP31"),
@@ -238,38 +239,38 @@ NUMBERS = [
 # Secondary cards 4..13: num, kicker, headline, one short line, tag, scene.
 CARDS = [
     (4, "NEW YORK · MARKETS", "Anthropic jumps 17% on Nasdaq debut",
-     "Shares rise 17% on day one; $81.3bn IPO is the largest on record. — AP",
+     "Valued at $81.3bn; shares +17%. — AP",
      "REPORTED", "anthropic"),
     (5, "CRIMEA · WAR", "Ukraine hits Crimea bridge again",
-     "Third strike in a week halts trains to Russia. — Euronews",
+     "Third strike in a week. — Euronews",
      "REPORTED", "crimea"),
-    (6, "RIYADH · WAR", "Saudis shoot down Houthi missiles",
-     "Debris fell on the capital; no casualties reported. — Reuters",
-     "CLAIM", "riyadh"),
+    (6, "RIYADH · WAR", "Houthi missile hits Riyadh tower",
+     "Windows on 7–8 floors shatter. — Reuters",
+     "REPORTED", "riyadh"),
     (7, "ODISHA · STORM", "Cyclone Akvan nears India's coast",
-     "Over 100,000 in shelters before Friday's landfall. — IMD",
+     "Over 100,000 in shelters. — IMD",
      "FORECAST", "akvan"),
     (8, "GREENLAND · SECURITY", "Denmark backs Arctic pact with US",
-     "Parliament approves the Greenland security deal 109–0. — AP",
+     "Greenland deal approved 109–0. — AP",
      "REPORTED", "greenland"),
     (9, "GTA VI · GAMES", "GTA VI goes on sale after 13 years",
-     "The midnight launch draws rave reviews. — ABC",
+     "Rave reviews at midnight launch. — ABC",
      "REPORTED", "gta"),
-    (10, "SEOUL · JUSTICE", "Korea's top court clears ex-PM Han",
-     "Han Duck-soo's martial law conviction is overturned. — AP",
+    (10, "SEOUL · JUSTICE", "Court orders retrial of ex-PM Han",
+     "15-year term partly overturned. — AP",
      "REPORTED", "seoul"),
     (11, "BOGOTÁ · LABOUR", "Colombia's unions hold national strike",
-     "Marches in three cities against an economic law. — Infobae",
+     "Marches in three cities. — Infobae",
      "REPORTED", "bogota"),
     (12, "NAIROBI · SPORT", "Marathon champion banned for doping",
-     "Kenya's Peres Jepchirchir gets three years. — ABC",
+     "Jepchirchir gets three years. — ABC",
      "REPORTED", "nairobi"),
     (13, "CANBERRA · ECONOMY", "Australia's jobless rate hits 4.9%",
-     "Highest since 2021; shares and the dollar slide. — ABC",
+     "Highest since 2021. — ABC",
      "REPORTED", "canberra"),
 ]
 
-# Briefs 14..33: num, place, one sentence, source.
+# Briefs 14..38: num, place, one sentence, source.
 BRIEFS = [
     (14, "Shenzhen", "Xi urges ban on all nuclear arms.", "Al Jazeera"),
     (15, "APEC", 'Albanese to Putin: "End your war, end it now."', "ABC"),
@@ -291,6 +292,11 @@ BRIEFS = [
     (31, "Tonga", "Drought emergency takes effect.", "RNZ"),
     (32, "Cook Islands", "Cyclone Xavier weakens to category 4.", "RNZ"),
     (33, "Space", "Red giant seen eating a Sun-sized star.", "Nature"),
+    (34, "Washington", "Senate nixes Iran war curb, 48–51.", "AP"),
+    (35, "Ulaanbaatar", "President steps down.", "AP"),
+    (36, "Dhaka", "Unrest ahead of Hasina's return.", "AP"),
+    (37, "Seoul", "Exports pass $1 trillion.", "Reuters"),
+    (38, "Port-au-Prince", "Police raid gang stronghold.", "AP"),
 ]
 
 DATE_CHECK = ("DATE CHECK ✓ Every story on this page happened, or was first "
@@ -620,6 +626,9 @@ def sc_crimea(d, x, y, w, h):
 
 
 def sc_riyadh(d, x, y, w, h):
+    """Riyadh, 19 Nov: a Houthi missile HITS the PIF Tower (Riyadh's
+    tallest). Night skyline; one dominant tapering tower, centre-right,
+    with an orange impact burst and smoke at its upper floors."""
     d.rectangle([x, y, x + w, y + h], fill=NAVY_DEEP)
     d.ellipse([x + 10, y + 4, x + 22, y + 16], fill=(240, 235, 210))
     for bx, bw, bh in [(0, 15, 16), (18, 11, 24), (32, 17, 12), (52, 9, 28),
@@ -627,11 +636,22 @@ def sc_riyadh(d, x, y, w, h):
                        (134, 17, 11), (154, 11, 18), (168, 16, 12)]:
         d.rectangle([x + bx, y + h - bh, x + bx + bw, y + h], fill=(16, 24, 46),
                     outline=(70, 90, 130), width=1)
-    d.arc([x + 26, y - 28, x + 140, y + 32], 200, 330, fill=(255, 255, 255), width=2)
-    d.arc([x + 64, y - 22, x + 180, y + 28], 210, 320, fill=GOLD_L, width=2)
-    burst(d, x + 138, y + 7, 5, (255, 255, 255), points=5)
-    burst(d, x + 168, y + 11, 4, GOLD_L, points=5)
-    d.text((x + 5, y + h - 14), "OVER RIYADH", font=sans_b(8), fill=(255, 255, 255))
+    # PIF Tower: tall, tapering, slanted top — the dominant building
+    tx = x + 96
+    d.polygon([(tx, y + h), (tx + 4, y + 6), (tx + 22, y + 2),
+               (tx + 26, y + h)], fill=(38, 58, 100), outline=GOLD_L, width=1)
+    # lit windows on the tower
+    for wy in range(y + 14, y + h - 6, 7):
+        d.rectangle([tx + 8, wy, tx + 12, wy + 3], fill=GOLD_L)
+        d.rectangle([tx + 16, wy + 3, tx + 20, wy + 6], fill=GOLD_L)
+    # impact burst at the upper floors + smoke
+    burst(d, tx + 15, y + 12, 12, (255, 190, 60))
+    burst(d, tx + 15, y + 12, 6, (196, 66, 44))
+    for sx, sy, sr in [(tx + 2, y + 4, 6), (tx + 28, y + 2, 7), (tx + 24, y + 8, 5)]:
+        d.ellipse([sx - sr, sy - sr, sx + sr, sy + sr], fill=(120, 118, 112))
+    # missile streak diving into the tower
+    d.line([tx + 52, y + 2, tx + 18, y + 10], fill=(255, 210, 120), width=2)
+    d.text((x + 5, y + h - 14), "PIF TOWER", font=sans_b(8), fill=(255, 255, 255))
 
 
 def sc_akvan(d, x, y, w, h):
@@ -716,8 +736,9 @@ def sc_seoul(d, x, y, w, h):
                         fill=(140, 95, 50), outline=INK, width=1)
     d.rectangle([x + 94, y + 38, x + 134, y + 43], fill=(140, 95, 50),
                 outline=INK, width=1)
-    # OVERTURNED stamp, bottom-right, rotated
-    _stamp(d, x + w - 28, y + 33, "OVERTURNED", 7, BRICK, -8)
+    # RETRIAL stamp, bottom-right, rotated (v3 said OVERTURNED — wrong:
+    # the court only quashed part of the verdict and ordered a retrial)
+    _stamp(d, x + w - 28, y + 33, "RETRIAL", 7, NAVY_MID, -8)
 
 
 _CUR_IMG = None   # the page image, set by render() so stamps can paste
@@ -904,27 +925,29 @@ def big_card(d, img, x, y, w, h, num, kicker, headline, deck, scene_fn, tag):
 
 
 def small_card(d, img, x, y, w, h, num, kicker, headline, deck, scene_fn, tag):
-    """Grid card: small scene, kicker + tag, headline, short deck."""
+    """Grid card: BIGGER scene, kicker + tag, headline, one short deck
+    line. The scene is the picture that registers at 300px; the deck
+    is one line so the card stays airy."""
     d.rectangle([x, y, x + w, y + h], fill=PAPER, outline=INK, width=1)
-    scene_fn(d, x + 1, y + 1, w - 2, 43)
-    d.line([x, y + 45, x + w, y + 45], fill=INK, width=1)
-    disc(d, x + 10, y + 56, num, 8, NAVY, 9)
+    scene_fn(d, x + 1, y + 1, w - 2, 48)
+    d.line([x, y + 50, x + w, y + 50], fill=INK, width=1)
+    disc(d, x + 10, y + 61, num, 8, NAVY, 9)
     # kicker shrinks until it clears the tag chip
     ksize = 8
     tag_w = int(d.textlength(tag, font=sans_b(7))) + 9
     while ksize > 6 and (24 + d.textlength(kicker, font=sans_b(ksize))
                          > w - tag_w - 8):
         ksize -= 1
-    d.text((x + 24, y + 51), kicker, font=sans_b(ksize), fill=BRICK)
-    d.rounded_rectangle([x + w - tag_w - 3, y + 50, x + w - 3, y + 61],
+    d.text((x + 24, y + 56), kicker, font=sans_b(ksize), fill=BRICK)
+    d.rounded_rectangle([x + w - tag_w - 3, y + 55, x + w - 3, y + 66],
                         radius=3, outline=GOLD_D if tag == "FORECAST" else BRICK,
                         width=1)
-    d.text((x + w - tag_w + 1, y + 51), tag, font=sans_b(7),
+    d.text((x + w - tag_w + 1, y + 56), tag, font=sans_b(7),
            fill=GOLD_D if tag == "FORECAST" else BRICK)
-    yy = y + 64
-    lines = wrap_text(d, headline, serif_b(12), w - 12)[:2]
-    yy = put_lines(d, x + 6, yy, lines, serif_b(12), INK, 14)
-    deck_lines = wrap_text(d, deck, sans(8), w - 12)[:2]
+    yy = y + 69
+    lines = wrap_text(d, headline, serif_b(13), w - 12)[:2]
+    yy = put_lines(d, x + 6, yy, lines, serif_b(13), INK, 15)
+    deck_lines = wrap_text(d, deck, sans(8), w - 12)[:1]
     put_lines(d, x + 6, yy + 1, deck_lines, sans(8), INK_SOFT, 10)
 
 
@@ -946,14 +969,14 @@ def one_brief(d, x, y, maxw, num, place, sentence, source):
 def render():
     global _CUR_IMG
     # ---- data integrity checks (fail loudly, never silently mis-count)
-    assert sorted(REGIONS) == list(range(1, 34)), "story numbers 1-33"
+    assert sorted(REGIONS) == list(range(1, 39)), "story numbers 1-38"
     counts = {}
     for r in REGIONS.values():
         counts[r] = counts.get(r, 0) + 1
     assert counts == REGION_TOTALS, f"region counts {counts}"
     assert sorted(n for n, *_ in CARDS) == list(range(4, 14))
-    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 34))
-    assert len(CARDS) + len(BRIEFS) + 3 == 33, "33 stories total"
+    assert sorted(n for n, *_ in BRIEFS) == list(range(14, 39))
+    assert len(CARDS) + len(BRIEFS) + 3 == 38, "38 stories total"
 
     img = Image.new("RGBA", (W, H), CREAM + (255,))
     _CUR_IMG = img
@@ -961,7 +984,7 @@ def render():
 
     # ---- 1. masthead (navy rule under a giant serif date)
     d.text((M, 8), "THE WORLD IN ONE DAY", font=sans_b(14), fill=NAVY)
-    right = "33 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
+    right = "38 STORIES · EVERY CONTINENT · ALL FROM THIS ONE DAY"
     d.text((W - M - d.textlength(right, font=sans_b(12)), 10), right,
            font=sans_b(12), fill=GOLD_D)
     date_font, _ = shrink_to_fit(d, "Thursday 19 November 2026", serif_b, 54, CW)
@@ -969,8 +992,9 @@ def render():
     d.rectangle([0, 94, W, 98], fill=NAVY)
 
     # ---- subhead (navy italic, centred, the three top stories)
-    sub = ("Trump, Xi and Putin share one table · The World Court finds "
-           "genocide in Myanmar · COP31 drops fossil fuels and $120bn aid goal")
+    sub = ("Trump, Xi and Putin share one table · The World Court holds "
+           "Myanmar responsible for genocide · COP31 drops fossil fuels "
+           "and $120bn aid goal")
     sub_font, _ = shrink_to_fit(d, sub, serif_i, 15, CW)
     d.text(((W - d.textlength(sub, font=sub_font)) / 2, 104), sub,
            font=sub_font, fill=NAVY)
@@ -1010,12 +1034,12 @@ def render():
     d.text((M + 28, hy + 141), "THE HAGUE · JUSTICE", font=sans_b(10), fill=BRICK)
     tagbox(d, M + CW - 76, hy + 141, "REPORTED", BRICK)
     hero_font, _ = shrink_to_fit(
-        d, "World Court: Myanmar committed genocide", serif_b, 30, CW - 24)
-    d.text((M + 12, hy + 158), "World Court: Myanmar committed genocide",
+        d, "World Court holds Myanmar responsible", serif_b, 30, CW - 24)
+    d.text((M + 12, hy + 158), "World Court holds Myanmar responsible",
            font=hero_font, fill=INK)
     d.text((M + 12, hy + 190),
-           "By 9 votes to 6 the ICJ found Myanmar guilty of genocide against "
-           "the Rohingya and ordered reparations. — Al Jazeera · UN News",
+           "By 9 votes to 6 the ICJ held Myanmar responsible for genocide "
+           "against the Rohingya and ordered reparations. — Al Jazeera · UN News",
            font=sans(11), fill=INK_SOFT)
 
     # ---- 5. second row: APEC + COP31 as two wide cards
@@ -1058,10 +1082,10 @@ def render():
     d.line([bx, 838, W - M, 838], fill=BRICK, width=2)
     colw = (W - M - bx - 12) / 2
     for i, (num, place, sent, src) in enumerate(BRIEFS):
-        col = i // 10
-        r = i % 10
+        col = i // 13
+        r = i % 13
         xx = bx + col * (colw + 12)
-        yy = 844 + r * 9.4
+        yy = 840 + r * 7.8
         one_brief(d, xx, yy, colw, num, place, sent, src)
 
     # ---- 8. footer DATE CHECK
